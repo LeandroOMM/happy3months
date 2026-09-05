@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="referrer" content="strict-origin-when-cross-origin">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <title>Happy 3 Months Baby</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Meddon&display=swap" rel="stylesheet">
@@ -241,10 +242,10 @@ button{font-family:inherit}
     </div>
 
     <div class="collage">
-      <div class="photo-slot slot-a" data-photo="788688925_2282046085963626_7676672688282221659_n.jpg"></div>
-      <div class="photo-slot slot-b" data-photo="790224644_2127530284832369_4955173066589353780_n.jpg"></div>
-      <div class="photo-slot slot-c" data-photo="791509215_1067692859189931_1491793533794654651_n.jpg"></div>
-      <div class="photo-slot slot-d" data-photo="796816663_1381608374157047_623991851960589230_n.jpg"></div>
+      <div class="photo-slot slot-a" style="display:flex" data-photo="788688925_2282046085963626_7676672688282221659_n.jpg"></div>
+      <div class="photo-slot slot-b" style="display:flex" data-photo="790224644_2127530284832369_4955173066589353780_n.jpg"></div>
+      <div class="photo-slot slot-c" style="display:flex" data-photo="791509215_1067692859189931_1491793533794654651_n.jpg"></div>
+      <div class="photo-slot slot-d" style="display:flex" data-photo="796816663_1381608374157047_623991851960589230_n.jpg"></div>
     </div>
 
     <div class="letter-card">
@@ -402,33 +403,114 @@ Thank you for everything. I love you so much. ❤️</div>
     else stopMusic();
   });
 
-  /* Las imágenes se cargan directamente desde GitHub.
-     No dependen de un estado asíncrono ni de localStorage. */
+  /* =========================
+     FOTOS — URLs ABSOLUTAS
+     =========================
+     GitHub confirma que los 4 archivos existen. Usamos raw.githubusercontent.com
+     para que las imágenes no dependan de la ruta de GitHub Pages. */
+  const PHOTO_BASE =
+    "https://raw.githubusercontent.com/LeandroOMM/happy3months/refs/heads/main/";
+
   document.querySelectorAll(".photo-slot").forEach(slot=>{
-    const filename=slot.dataset.photo;
-    const img=document.createElement("img");
-    img.alt="Foto";
-    img.loading="eager";
-    img.decoding="async";
-    img.src=filename;
-    img.onerror=()=>{
-      if(!img.dataset.fallback){
-        img.dataset.fallback="1";
-        img.src="./"+encodeURIComponent(filename).replace(/%2F/g,"/");
-      }else{
-        slot.innerHTML='<div class="photo-error">No se pudo cargar esta foto.<br>Revisa que el nombre del archivo coincida exactamente en GitHub.</div>';
-      }
+    const filename = slot.dataset.photo;
+    const img = document.createElement("img");
+    img.alt = "Foto";
+    img.loading = "eager";
+    img.decoding = "async";
+    img.src = PHOTO_BASE + filename;
+
+    img.onerror = ()=>{
+      slot.innerHTML =
+        '<div class="photo-error">No se pudo cargar esta foto.<br>Archivo: ' +
+        filename + '</div>';
     };
+
     slot.appendChild(img);
   });
 
-  /* Wave visual para la nota de voz, aunque actualmente no hay una cargada. */
-  const wave=document.getElementById("waveBars");
+  /* =========================
+     NOTA DE VOZ
+     =========================
+     La versión final anterior no tenía la nota dentro del HTML: el audio se
+     guardaba en localStorage/window.storage. Intentamos recuperar esa nota
+     automáticamente si todavía existe en el navegador donde se usó la página.
+     Si el almacenamiento fue borrado, el audio original no puede reconstruirse
+     porque no existe como archivo dentro del repositorio. */
+  const voicePlayBtn = document.getElementById("voicePlayBtn");
+  const voiceEmpty = document.getElementById("voiceEmpty");
+  const wave = document.getElementById("waveBars");
+  const voiceAudio = new Audio();
+  let voicePlaying = false;
+
   for(let i=0;i<26;i++){
     const span=document.createElement("span");
     span.style.height=(20+Math.random()*70)+"%";
     wave.appendChild(span);
   }
+
+  function showVoice(dataUrl){
+    if(!dataUrl || typeof dataUrl !== "string") return false;
+    if(!dataUrl.startsWith("data:audio/")) return false;
+
+    voiceAudio.src = dataUrl;
+    voicePlayBtn.hidden = false;
+    wave.hidden = false;
+    voiceEmpty.hidden = true;
+    return true;
+  }
+
+  voicePlayBtn.addEventListener("click", ()=>{
+    if(!voiceAudio.src) return;
+
+    if(voicePlaying){
+      voiceAudio.pause();
+      voicePlayBtn.textContent="▶";
+      voicePlaying=false;
+    }else{
+      voiceAudio.play().then(()=>{
+        voicePlayBtn.textContent="❚❚";
+        voicePlaying=true;
+      }).catch(()=>{
+        voicePlaying=false;
+      });
+    }
+  });
+
+  voiceAudio.addEventListener("ended", ()=>{
+    voicePlaying=false;
+    voicePlayBtn.textContent="▶";
+  });
+
+  async function recoverOldVoice(){
+    /* 1) Intentar window.storage, que era el sistema original. */
+    try{
+      if(window.storage && typeof window.storage.get === "function"){
+        const result = await window.storage.get("carta-data-v1", true);
+        if(result && result.value){
+          const saved = JSON.parse(result.value);
+          if(showVoice(saved.voice)) return;
+        }
+      }
+    }catch(e){}
+
+    /* 2) Intentar localStorage del sitio antiguo. */
+    try{
+      const raw = localStorage.getItem("carta-data-v1");
+      if(raw){
+        const saved = JSON.parse(raw);
+        if(showVoice(saved.voice)) return;
+      }
+    }catch(e){}
+
+    /* No inventamos una grabación si ya no existe. */
+    voicePlayBtn.hidden = true;
+    wave.hidden = true;
+    voiceEmpty.hidden = false;
+    voiceEmpty.innerHTML =
+      "<span>🎙️ La nota de voz original ya no está disponible</span>";
+  }
+
+  recoverOldVoice();
 })();
 </script>
 </body>
