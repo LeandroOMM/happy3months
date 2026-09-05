@@ -4,1371 +4,431 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="referrer" content="strict-origin-when-cross-origin">
-<title>Para ti</title>
+<title>Happy 3 Months Baby</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Meddon&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --blush-bg: #FBF0EC;
-    --rosa-palo: #E3B7B4;
-    --rosa-deep: #C98D8F;
-    --rosa-line: #D9A8A6;
-    --ink: #6B4A48;
-    --ink-soft: #8A6663;
-    --paper: #FFFCFA;
-    --gold: #C9A16A;
-    --sage: #A9B693;
-    --shadow: rgba(120, 80, 78, 0.18);
-  }
-  *{box-sizing:border-box;}
-  html,body{margin:0;padding:0;}
-  body{
-    min-height:100vh;
-    background: radial-gradient(circle at 20% 15%, #F7E3DE 0%, var(--blush-bg) 45%, #F3DCD8 100%);
-    font-family: 'Cormorant Garamond', serif;
-    color: var(--ink);
-    overflow-x:hidden;
-  }
-  button{font-family:inherit;}
+:root{
+  --blush-bg:#FBF0EC;
+  --rosa-palo:#E3B7B4;
+  --rosa-deep:#C98D8F;
+  --rosa-line:#D9A8A6;
+  --ink:#6B4A48;
+  --ink-soft:#8A6663;
+  --paper:#FFFCFA;
+  --shadow:rgba(120,80,78,.18);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  min-height:100vh;
+  background:radial-gradient(circle at 20% 15%,#F7E3DE 0%,var(--blush-bg) 45%,#F3DCD8 100%);
+  font-family:'Cormorant Garamond',serif;
+  color:var(--ink);
+  overflow-x:hidden;
+}
+button{font-family:inherit}
+[hidden]{display:none!important}
 
-  /* ---------- decorative roses ---------- */
-  .rose{position:absolute; opacity:.85; pointer-events:none;}
-  svg.rose-svg{display:block;}
+/* PIN */
+#pinScreen{
+  min-height:100vh;display:flex;align-items:center;justify-content:center;
+  position:relative;padding:24px;
+}
+.pin-card{
+  background:var(--paper);border-radius:28px;padding:48px 40px 40px;
+  max-width:380px;width:100%;text-align:center;
+  box-shadow:0 20px 60px var(--shadow);
+  border:1px solid #F0DAD6;position:relative;z-index:2;
+}
+.pin-eyebrow{
+  font-family:'Meddon',cursive;font-size:28px;color:var(--rosa-deep);margin:0 0 4px;
+}
+.pin-sub{font-size:16px;color:var(--ink-soft);margin:0 0 28px;letter-spacing:.3px}
+.pin-dots{display:flex;justify-content:center;gap:16px;margin-bottom:28px}
+.pin-dot{
+  width:18px;height:18px;border-radius:50%;border:2px solid var(--rosa-deep);
+  transition:background .15s,transform .15s;
+}
+.pin-dot.filled{background:var(--rosa-deep);transform:scale(1.08)}
+.pin-dot.err{border-color:#B85C5C;animation:shake .35s}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.keypad{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;max-width:260px;margin:auto}
+.key{
+  aspect-ratio:1;border-radius:50%;border:1px solid #E9C9C6;background:#FFF7F5;
+  font-size:20px;color:var(--ink);cursor:pointer;display:flex;align-items:center;justify-content:center;
+  transition:background .15s,transform .1s;
+}
+.key:active{transform:scale(.92);background:var(--rosa-palo);color:#fff}
+.key.wide{font-size:14px;color:var(--ink-soft);border:none;background:transparent}
+.pin-error-msg{min-height:20px;font-size:14px;color:#B85C5C;margin-top:14px}
 
-  /* ================= PIN SCREEN ================= */
-  #pinScreen{
-    min-height:100vh;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    position:relative;
-    padding:24px;
-  }
-  .pin-card{
-    background: var(--paper);
-    border-radius: 28px;
-    padding: 48px 40px 40px;
-    max-width: 380px;
-    width:100%;
-    text-align:center;
-    box-shadow: 0 20px 60px var(--shadow);
-    position:relative;
-    z-index:2;
-    border: 1px solid #F0DAD6;
-  }
-  .pin-eyebrow{
-    font-family:'Meddon', cursive;
-    font-size: 28px;
-    color: var(--rosa-deep);
-    margin: 0 0 4px;
-  }
-  .pin-sub{
-    font-size:16px;
-    color: var(--ink-soft);
-    margin: 0 0 28px;
-    letter-spacing:.3px;
-  }
-  .pin-dots{
-    display:flex;
-    justify-content:center;
-    gap:16px;
-    margin-bottom: 28px;
-  }
-  .pin-dot{
-    width:18px; height:18px;
-    border-radius:50%;
-    border: 2px solid var(--rosa-deep);
-    transition: background .15s ease, transform .15s ease;
-  }
-  .pin-dot.filled{ background: var(--rosa-deep); transform: scale(1.08); }
-  .pin-dot.err{ border-color:#B85C5C; animation: shake .35s; }
-  @keyframes shake{
-    0%,100%{transform:translateX(0);}
-    25%{transform:translateX(-6px);}
-    75%{transform:translateX(6px);}
-  }
-  .keypad{
-    display:grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
-    max-width: 260px;
-    margin: 0 auto;
-  }
-  .key{
-    aspect-ratio:1;
-    border-radius:50%;
-    border: 1px solid #E9C9C6;
-    background: #FFF7F5;
-    font-size: 20px;
-    color: var(--ink);
-    cursor:pointer;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    transition: background .15s, transform .1s;
-  }
-  .key:active{ transform: scale(.92); background: var(--rosa-palo); color:#fff; }
-  .key.wide{ font-size:14px; color: var(--ink-soft); border:none; background:transparent;}
-  .pin-error-msg{
-    min-height: 20px;
-    font-size: 14px;
-    color: #B85C5C;
-    margin-top: 14px;
-  }
+/* LETTER */
+#letterScreen{position:relative;padding:0 0 80px}
+.top-decor{text-align:center;padding:56px 20px 24px;position:relative;z-index:1}
+.title-script{
+  font-family:'Meddon',cursive;font-size:clamp(34px,7vw,54px);
+  color:var(--rosa-deep);margin:0;
+}
+.title-sub{font-size:15px;letter-spacing:2px;color:var(--ink-soft);margin-top:6px}
+.section{max-width:720px;margin:0 auto;padding:28px 24px;position:relative;z-index:1}
 
-  /* ================= LETTER SCREEN ================= */
-  #letterScreen{ position:relative; padding: 0 0 80px; }
-  .top-decor{
-    position:relative;
-    text-align:center;
-    padding: 56px 20px 24px;
-  }
-  .title-script{
-    font-family:'Meddon', cursive;
-    font-size: clamp(34px, 7vw, 54px);
-    color: var(--rosa-deep);
-    margin: 0;
-  }
-  .title-sub{
-    font-size: 15px;
-    letter-spacing: 2px;
-    color: var(--ink-soft);
-    margin-top: 6px;
-  }
+/* side flowers */
+.side-bouquet{
+  position:fixed;width:160px;pointer-events:none;z-index:0;opacity:.95;
+}
+.side-bouquet.left{left:4px}
+.side-bouquet.right{right:4px;transform:scaleX(-1)}
+.side-bouquet.top{top:70px}
+.side-bouquet.bottom{bottom:10px}
+@media(max-width:1180px){.side-bouquet{display:none}}
 
-  .edit-toggle{
-    position: fixed;
-    top: 18px; right: 18px;
-    z-index: 50;
-    background: var(--paper);
-    border: 1px solid var(--rosa-line);
-    color: var(--rosa-deep);
-    width: 44px; height:44px;
-    border-radius: 50%;
-    cursor:pointer;
-    box-shadow: 0 6px 18px var(--shadow);
-    font-size: 18px;
-    display:flex; align-items:center; justify-content:center;
-  }
+/* music */
+.music-toggle{
+  position:fixed;top:18px;left:18px;z-index:50;
+  background:var(--paper);border:1px solid var(--rosa-line);color:var(--rosa-deep);
+  width:44px;height:44px;border-radius:50%;cursor:pointer;
+  box-shadow:0 6px 18px var(--shadow);font-size:18px;
+  display:flex;align-items:center;justify-content:center;
+}
 
-  .download-final-toggle{
-    position: fixed;
-    top: 70px; right: 18px;
-    z-index: 50;
-    background: var(--paper);
-    border: 1px solid var(--rosa-line);
-    color: var(--rosa-deep);
-    width: 44px; height:44px;
-    border-radius: 50%;
-    cursor:pointer;
-    box-shadow: 0 6px 18px var(--shadow);
-    font-size: 18px;
-    display:flex; align-items:center; justify-content:center;
-  }
-  .download-final-toggle:disabled{ opacity:.55; cursor:default; }
+/* video */
+.video-frame{
+  position:relative;margin:0 auto;border-radius:22px;overflow:hidden;
+  background:linear-gradient(135deg,#F3DCD8,#EAC6C2);
+  aspect-ratio:4/5;max-height:560px;
+  box-shadow:0 14px 34px var(--shadow);
+  border:6px solid var(--paper);outline:1px solid #EFD3CF;
+}
+.video-frame video{width:100%;height:100%;object-fit:contain;display:block;background:#000}
+.video-frame.yt-only{aspect-ratio:16/9;max-height:420px}
+.yt-wrap{position:absolute;inset:0}
+.yt-wrap iframe{width:100%;height:100%;border:0;display:block}
 
-  .music-toggle{
-    position: fixed;
-    top: 18px; left: 18px;
-    z-index: 50;
-    background: var(--paper);
-    border: 1px solid var(--rosa-line);
-    color: var(--rosa-deep);
-    width: 44px; height:44px;
-    border-radius: 50%;
-    cursor:pointer;
-    box-shadow: 0 6px 18px var(--shadow);
-    font-size: 18px;
-    display:flex; align-items:center; justify-content:center;
-  }
+/* photos */
+.collage{
+  position:relative;display:grid;grid-template-columns:1fr 1fr;
+  gap:14px;margin-top:28px;
+}
+.photo-slot{
+  position:relative;border-radius:16px;overflow:hidden;
+  background:linear-gradient(135deg,#F3DCD8,#EAC6C2);
+  border:6px solid var(--paper);box-shadow:0 10px 26px var(--shadow);
+  aspect-ratio:3/4;display:flex;align-items:center;justify-content:center;
+}
+.photo-slot img{
+  width:100%;height:100%;object-fit:contain;object-position:center;
+  display:block;margin:auto;
+}
+.slot-a{transform:rotate(-2deg);width:92%;margin:0 auto;justify-self:center}
+.slot-b{transform:rotate(1.5deg)}
+.slot-c{transform:rotate(-1deg)}
+.slot-d{transform:rotate(1deg)}
+.photo-error{padding:15px;text-align:center;color:var(--ink-soft);font-size:13px}
 
-  .section{
-    max-width: 720px;
-    margin: 0 auto;
-    padding: 28px 24px;
-    position:relative;
-    z-index:1;
-  }
-  .top-decor, .pin-card{ position:relative; z-index:1; }
+/* letter */
+.letter-card{
+  margin-top:40px;background:var(--paper);border-radius:20px;
+  padding:44px 36px;box-shadow:0 16px 40px var(--shadow);
+  position:relative;border:1px solid #F0DAD6;
+}
+.letter-card:before{
+  content:"❝";position:absolute;top:6px;left:22px;font-size:46px;
+  color:var(--rosa-palo);font-family:Georgia,serif;
+}
+.letter-text{
+  font-size:20px;line-height:1.85;color:var(--ink);
+  white-space:pre-wrap;min-height:120px;
+}
+.letter-signoff{
+  margin-top:18px;text-align:right;font-family:'Meddon',cursive;
+  color:var(--rosa-deep);font-size:24px;
+}
 
-  /* side flower bouquets */
-  .side-bouquet{
-    position: fixed;
-    width: 160px;
-    pointer-events:none;
-    z-index:0;
-    opacity:.95;
-  }
-  .side-bouquet.left{ left: 4px; }
-  .side-bouquet.right{ right: 4px; transform: scaleX(-1); }
-  .side-bouquet.top{ top: 70px; }
-  .side-bouquet.bottom{ bottom: 10px; }
-  @media (max-width: 1180px){
-    .side-bouquet{ display:none; }
-  }
+/* voice */
+.voice-wrap{margin-top:34px;display:flex;justify-content:center}
+.voice-bubble{
+  display:flex;align-items:center;gap:12px;background:var(--paper);
+  border-radius:999px;padding:12px 20px;box-shadow:0 10px 26px var(--shadow);
+  border:1px solid #F0DAD6;max-width:360px;width:100%;
+}
+.play-circle{
+  width:42px;height:42px;border-radius:50%;background:var(--rosa-deep);
+  color:#fff;border:none;display:flex;align-items:center;justify-content:center;
+  font-size:15px;flex-shrink:0;cursor:pointer;
+}
+.wave{flex:1;display:flex;align-items:center;gap:3px;height:22px;overflow:hidden}
+.wave span{width:3px;border-radius:2px;background:var(--rosa-line);height:40%}
+.voice-empty{font-size:14px;color:var(--ink-soft);display:flex;align-items:center;gap:10px}
 
-  /* music panel (edit mode) */
-  .music-panel{
-    position: fixed;
-    top: 70px; left: 18px;
-    z-index: 50;
-    background: var(--paper);
-    border: 1px solid var(--rosa-line);
-    border-radius: 16px;
-    padding: 10px;
-    box-shadow: 0 8px 20px var(--shadow);
-    width: 220px;
-  }
-  .music-panel .link-input{ width:100%; max-width:none; margin-top:0; }
-  .music-panel label{ font-size:12px; color:var(--ink-soft); display:block; margin-bottom:6px; }
-
-  /* youtube embed */
-  .yt-wrap{ position:absolute; inset:0; }
-  .yt-wrap iframe{ width:100%; height:100%; border:0; display:block; }
-  .video-frame.yt-only{ aspect-ratio: 16/9; max-height: 420px; }
-
-  /* video */
-  .video-frame{
-    position:relative;
-    margin: 0 auto;
-    border-radius: 22px;
-    overflow:hidden;
-    background: linear-gradient(135deg, #F3DCD8, #EAC6C2);
-    aspect-ratio: 4/5;
-    max-height: 560px;
-    box-shadow: 0 14px 34px var(--shadow);
-    border: 6px solid var(--paper);
-    outline: 1px solid #EFD3CF;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-  }
-  .video-frame video{ width:100%; height:100%; object-fit:contain; object-position:center center; display:block; background:transparent; margin:auto; }
-  .empty-slot{
-    position:absolute; inset:0;
-    display:flex; flex-direction:column; align-items:center; justify-content:center;
-    gap:8px;
-    color: var(--rosa-deep);
-    font-size: 15px;
-    text-align:center;
-    padding: 12px;
-  }
-  .empty-slot .icon{ font-size: 26px; }
-  .upload-btn{
-    background: var(--rosa-deep);
-    color:#fff;
-    border:none;
-    padding: 9px 18px;
-    border-radius: 999px;
-    font-size: 14px;
-    cursor:pointer;
-    margin-top:4px;
-  }
-  .link-input{
-    margin-top:8px;
-    border: 1px solid var(--rosa-line);
-    border-radius: 999px;
-    padding: 7px 14px;
-    font-size: 13px;
-    width: 80%;
-    max-width: 260px;
-    text-align:center;
-    font-family: inherit;
-    color: var(--ink);
-    background: rgba(255,255,255,.7);
-  }
-  .hidden-file{ display:none; }
-
-  /* photo collage - 4 specific spots */
-  .collage{
-    position:relative;
-    display:grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 14px;
-    margin-top: 28px;
-  }
-  .photo-slot{
-    position:relative;
-    border-radius: 16px;
-    overflow:hidden;
-    background: linear-gradient(135deg, #F3DCD8, #EAC6C2);
-    border: 6px solid var(--paper);
-    box-shadow: 0 10px 26px var(--shadow);
-    aspect-ratio: 3/4;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-  }
-  .photo-slot img{ width:100%; height:100%; object-fit:contain; object-position:center center; display:block; margin:auto; }
-  .slot-a{ transform: rotate(-2deg); width: 92%; margin: 0 auto; justify-self: center; }
-  .slot-b{ transform: rotate(1.5deg); }
-  .slot-c{ transform: rotate(-1deg); }
-  .slot-d{ transform: rotate(1deg); }
-  .photo-slot .empty-slot{ font-size:13px; }
-  .photo-slot .empty-slot .icon{ font-size:20px; }
-  .photo-slot .upload-btn{ padding: 6px 14px; font-size:12px; }
-
-  /* letter text */
-  .letter-card{
-    margin-top: 40px;
-    background: var(--paper);
-    border-radius: 20px;
-    padding: 44px 36px;
-    box-shadow: 0 16px 40px var(--shadow);
-    position:relative;
-    border: 1px solid #F0DAD6;
-  }
-  .letter-card::before{
-    content:"❝";
-    position:absolute;
-    top: 6px; left: 22px;
-    font-size: 46px;
-    color: var(--rosa-palo);
-    font-family: Georgia, serif;
-  }
-  .letter-text{
-    font-size: 20px;
-    line-height: 1.85;
-    color: var(--ink);
-    white-space: pre-wrap;
-    outline:none;
-    min-height: 120px;
-  }
-  .letter-text[contenteditable="true"]{
-    border: 1px dashed var(--rosa-line);
-    border-radius: 12px;
-    padding: 10px;
-  }
-  .title-script[contenteditable="true"], .title-sub[contenteditable="true"], .letter-signoff[contenteditable="true"]{
-    border: 1px dashed var(--rosa-line);
-    border-radius: 10px;
-    outline:none;
-    padding: 4px 12px;
-    display:inline-block;
-  }
-  .letter-signoff{
-    margin-top: 18px;
-    text-align:right;
-    font-family:'Meddon', cursive;
-    color: var(--rosa-deep);
-    font-size: 24px;
-  }
-
-  /* voice note */
-  .voice-wrap{ margin-top: 34px; display:flex; justify-content:center; }
-  .voice-bubble{
-    display:flex;
-    align-items:center;
-    gap: 12px;
-    background: var(--paper);
-    border-radius: 999px;
-    padding: 12px 20px;
-    box-shadow: 0 10px 26px var(--shadow);
-    border: 1px solid #F0DAD6;
-    max-width: 360px;
-    width:100%;
-  }
-  .play-circle{
-    width: 42px; height:42px;
-    border-radius:50%;
-    background: var(--rosa-deep);
-    color:#fff;
-    border:none;
-    display:flex; align-items:center; justify-content:center;
-    font-size: 15px;
-    cursor:pointer;
-    flex-shrink:0;
-  }
-  .wave{
-    flex:1;
-    display:flex; align-items:center; gap:3px;
-    height: 22px;
-    overflow:hidden;
-  }
-  .wave span{
-    width:3px; border-radius:2px;
-    background: var(--rosa-line);
-    height: 40%;
-  }
-  .voice-empty{
-    font-size: 14px; color: var(--ink-soft);
-    display:flex; align-items:center; gap:10px;
-  }
-
-  /* footer roses */
-  .bottom-decor{ text-align:center; padding-top: 30px; opacity:.9; }
-
-  .upload-btn.recording{ background:#B85C5C; animation: pulseRec 1s ease-in-out infinite; }
-  @keyframes pulseRec{ 0%,100%{ opacity:1; } 50%{ opacity:.6; } }
-
-  #musicYtPlayer, #musicYtPlayer iframe{
-    position:fixed !important;
-    top:0; left:0;
-    width:2px !important; height:2px !important;
-    overflow:hidden;
-    opacity:0 !important;
-    pointer-events:none !important;
-    z-index:-1;
-  }
-
-  [hidden]{ display:none !important; }
-
-  @media (max-width: 480px){
-    .letter-card{ padding: 32px 22px; }
-  }
+/* decorative */
+.bottom-decor{text-align:center;padding-top:30px;opacity:.9}
+@media(max-width:480px){
+  .pin-card{padding:38px 22px 30px}
+  .section{padding-left:18px;padding-right:18px}
+  .letter-card{padding:32px 22px}
+  .letter-text{font-size:18px}
+}
 </style>
 </head>
 <body>
 
-<!-- ================= PIN SCREEN ================= -->
+<!-- PIN -->
 <div id="pinScreen">
-  <svg class="rose rose-svg" style="top:-30px; left:-30px; width:140px;" viewBox="0 0 100 100"><g fill="#E3B7B4"><circle cx="30" cy="30" r="14"/><circle cx="46" cy="24" r="11"/><circle cx="20" cy="46" r="10"/></g><g fill="#C98D8F" opacity=".6"><circle cx="30" cy="30" r="6"/></g></svg>
-  <svg class="rose rose-svg" style="bottom:-30px; right:-30px; width:160px;" viewBox="0 0 100 100"><g fill="#E3B7B4"><circle cx="70" cy="70" r="16"/><circle cx="52" cy="78" r="10"/><circle cx="84" cy="54" r="9"/></g><g fill="#C98D8F" opacity=".6"><circle cx="70" cy="70" r="7"/></g></svg>
+  <svg class="side-bouquet left top" viewBox="0 0 120 220">
+    <path d="M60 210 C55 160 65 120 45 90M60 210 C60 150 60 110 60 70M60 210 C65 160 55 120 75 90" stroke="#A9B693" stroke-width="3" fill="none"/>
+    <ellipse cx="46" cy="150" rx="11" ry="4.5" fill="#A9B693" transform="rotate(-30 46 150)"/>
+    <ellipse cx="74" cy="150" rx="11" ry="4.5" fill="#A9B693" transform="rotate(30 74 150)"/>
+    <rect x="47" y="196" width="26" height="11" rx="4" fill="#C98D8F"/>
+    <g fill="#E3B7B4"><circle cx="45" cy="85" r="16"/><circle cx="75" cy="85" r="15"/><circle cx="60" cy="63" r="17"/><circle cx="28" cy="96" r="11"/><circle cx="92" cy="96" r="11"/></g>
+    <g fill="#C98D8F" opacity=".55"><circle cx="45" cy="85" r="7"/><circle cx="75" cy="85" r="6"/><circle cx="60" cy="63" r="7"/></g>
+  </svg>
 
   <div class="pin-card">
-    <p class="pin-eyebrow" id="pinEyebrowText">Para mi amor</p>
-    <p class="pin-sub" id="pinSubText">Ingresa el código para abrir tu carta</p>
+    <p class="pin-eyebrow" id="pinEyebrowText">Happy 3 Months Babyyy</p>
+    <p class="pin-sub" id="pinSubText">You need to know the code</p>
     <div class="pin-dots" id="pinDots">
-      <div class="pin-dot"></div>
-      <div class="pin-dot"></div>
-      <div class="pin-dot"></div>
-      <div class="pin-dot"></div>
+      <div class="pin-dot"></div><div class="pin-dot"></div><div class="pin-dot"></div><div class="pin-dot"></div>
     </div>
     <div class="keypad" id="keypad">
-      <button class="key" data-k="1">1</button>
-      <button class="key" data-k="2">2</button>
-      <button class="key" data-k="3">3</button>
-      <button class="key" data-k="4">4</button>
-      <button class="key" data-k="5">5</button>
-      <button class="key" data-k="6">6</button>
-      <button class="key" data-k="7">7</button>
-      <button class="key" data-k="8">8</button>
-      <button class="key" data-k="9">9</button>
-      <button class="key wide" data-k="clear">Borrar</button>
-      <button class="key" data-k="0">0</button>
-      <button class="key wide" data-k="back">⌫</button>
+      <button class="key" data-k="1">1</button><button class="key" data-k="2">2</button><button class="key" data-k="3">3</button>
+      <button class="key" data-k="4">4</button><button class="key" data-k="5">5</button><button class="key" data-k="6">6</button>
+      <button class="key" data-k="7">7</button><button class="key" data-k="8">8</button><button class="key" data-k="9">9</button>
+      <button class="key wide" data-k="clear">C</button><button class="key" data-k="0">0</button><button class="key wide" data-k="back">⌫</button>
     </div>
     <p class="pin-error-msg" id="pinMsg">&nbsp;</p>
   </div>
 </div>
 
-<!-- ================= LETTER SCREEN ================= -->
+<!-- CARTA -->
 <div id="letterScreen" hidden>
   <button class="music-toggle" id="musicToggle" title="Música">🔊</button>
-  <button class="edit-toggle" id="editToggle" title="Editar carta">✎</button>
-  <button class="download-final-toggle" id="downloadFinalBtn" title="Descargar versión final">⬇</button>
 
-  <div class="music-panel" id="musicPanel" hidden>
-    <label>Link de tu canción (mp3/audio o YouTube)</label>
-    <input class="link-input" id="musicUrlInput" placeholder="https://..." style="width:70%;">
-    <button class="upload-btn" id="musicPlayBtn" style="padding:7px 12px; font-size:12px; margin-left:4px;">▶</button>
-  </div>
-  <div class="music-panel" id="welcomePanel" hidden style="top:160px;">
-    <label>Frase de bienvenida</label>
-    <input class="link-input" id="welcomeEyebrowInput" placeholder="Para mi amor" style="margin-bottom:8px;">
-    <label>Texto bajo la frase</label>
-    <input class="link-input" id="welcomeSubInput" placeholder="Ingresa el código...">
-  </div>
-
-  <!-- ramos decorativos a los lados -->
-  <svg class="side-bouquet left top" viewBox="0 0 120 220" xmlns="http://www.w3.org/2000/svg">
-    <path d="M60 210 C55 160 65 120 45 90" stroke="#A9B693" stroke-width="3" fill="none"/>
-    <path d="M60 210 C60 150 60 110 60 70" stroke="#A9B693" stroke-width="3" fill="none"/>
-    <path d="M60 210 C65 160 55 120 75 90" stroke="#A9B693" stroke-width="3" fill="none"/>
+  <svg class="side-bouquet left top" viewBox="0 0 120 220">
+    <path d="M60 210 C55 160 65 120 45 90M60 210 C60 150 60 110 60 70M60 210 C65 160 55 120 75 90" stroke="#A9B693" stroke-width="3" fill="none"/>
     <ellipse cx="46" cy="150" rx="11" ry="4.5" fill="#A9B693" transform="rotate(-30 46 150)"/>
     <ellipse cx="74" cy="150" rx="11" ry="4.5" fill="#A9B693" transform="rotate(30 74 150)"/>
     <rect x="47" y="196" width="26" height="11" rx="4" fill="#C98D8F"/>
-    <g fill="#E3B7B4">
-      <circle cx="45" cy="85" r="16"/><circle cx="75" cy="85" r="15"/><circle cx="60" cy="63" r="17"/>
-      <circle cx="28" cy="96" r="11"/><circle cx="92" cy="96" r="11"/>
-    </g>
-    <g fill="#C98D8F" opacity=".55">
-      <circle cx="45" cy="85" r="7"/><circle cx="75" cy="85" r="6"/><circle cx="60" cy="63" r="7"/>
-    </g>
+    <g fill="#E3B7B4"><circle cx="45" cy="85" r="16"/><circle cx="75" cy="85" r="15"/><circle cx="60" cy="63" r="17"/><circle cx="28" cy="96" r="11"/><circle cx="92" cy="96" r="11"/></g>
+    <g fill="#C98D8F" opacity=".55"><circle cx="45" cy="85" r="7"/><circle cx="75" cy="85" r="6"/><circle cx="60" cy="63" r="7"/></g>
   </svg>
-  <svg class="side-bouquet left bottom" viewBox="0 0 120 220" xmlns="http://www.w3.org/2000/svg">
-    <path d="M60 210 C55 160 65 120 45 90" stroke="#A9B693" stroke-width="3" fill="none"/>
-    <path d="M60 210 C60 150 60 110 60 70" stroke="#A9B693" stroke-width="3" fill="none"/>
+
+  <svg class="side-bouquet right bottom" viewBox="0 0 120 220">
+    <path d="M60 210 C55 160 65 120 45 90M60 210 C60 150 60 110 60 70" stroke="#A9B693" stroke-width="3" fill="none"/>
     <ellipse cx="46" cy="150" rx="11" ry="4.5" fill="#A9B693" transform="rotate(-30 46 150)"/>
     <rect x="47" y="196" width="26" height="11" rx="4" fill="#E3B7B4"/>
-    <g fill="#C98D8F">
-      <circle cx="50" cy="88" r="14"/><circle cx="76" cy="80" r="13"/><circle cx="30" cy="98" r="10"/>
-    </g>
-    <g fill="#E3B7B4" opacity=".7">
-      <circle cx="50" cy="88" r="6"/><circle cx="76" cy="80" r="5"/>
-    </g>
-  </svg>
-  <svg class="side-bouquet right top" viewBox="0 0 120 220" xmlns="http://www.w3.org/2000/svg">
-    <path d="M60 210 C55 160 65 120 45 90" stroke="#A9B693" stroke-width="3" fill="none"/>
-    <path d="M60 210 C60 150 60 110 60 70" stroke="#A9B693" stroke-width="3" fill="none"/>
-    <path d="M60 210 C65 160 55 120 75 90" stroke="#A9B693" stroke-width="3" fill="none"/>
-    <ellipse cx="46" cy="150" rx="11" ry="4.5" fill="#A9B693" transform="rotate(-30 46 150)"/>
-    <ellipse cx="74" cy="150" rx="11" ry="4.5" fill="#A9B693" transform="rotate(30 74 150)"/>
-    <rect x="47" y="196" width="26" height="11" rx="4" fill="#C98D8F"/>
-    <g fill="#E3B7B4">
-      <circle cx="45" cy="85" r="16"/><circle cx="75" cy="85" r="15"/><circle cx="60" cy="63" r="17"/>
-      <circle cx="28" cy="96" r="11"/><circle cx="92" cy="96" r="11"/>
-    </g>
-    <g fill="#C98D8F" opacity=".55">
-      <circle cx="45" cy="85" r="7"/><circle cx="75" cy="85" r="6"/><circle cx="60" cy="63" r="7"/>
-    </g>
-  </svg>
-  <svg class="side-bouquet right bottom" viewBox="0 0 120 220" xmlns="http://www.w3.org/2000/svg">
-    <path d="M60 210 C55 160 65 120 45 90" stroke="#A9B693" stroke-width="3" fill="none"/>
-    <path d="M60 210 C60 150 60 110 60 70" stroke="#A9B693" stroke-width="3" fill="none"/>
-    <ellipse cx="46" cy="150" rx="11" ry="4.5" fill="#A9B693" transform="rotate(-30 46 150)"/>
-    <rect x="47" y="196" width="26" height="11" rx="4" fill="#E3B7B4"/>
-    <g fill="#C98D8F">
-      <circle cx="50" cy="88" r="14"/><circle cx="76" cy="80" r="13"/><circle cx="30" cy="98" r="10"/>
-    </g>
-    <g fill="#E3B7B4" opacity=".7">
-      <circle cx="50" cy="88" r="6"/><circle cx="76" cy="80" r="5"/>
-    </g>
+    <g fill="#C98D8F"><circle cx="50" cy="88" r="14"/><circle cx="76" cy="80" r="13"/><circle cx="30" cy="98" r="10"/></g>
+    <g fill="#E3B7B4" opacity=".7"><circle cx="50" cy="88" r="6"/><circle cx="76" cy="80" r="5"/></g>
   </svg>
 
   <div class="top-decor">
-    <svg class="rose-svg" style="width:120px; margin:0 auto 6px; display:block;" viewBox="0 0 200 60">
+    <svg style="width:120px;margin:0 auto 6px;display:block" viewBox="0 0 200 60">
       <g fill="#E3B7B4">
         <circle cx="40" cy="30" r="14"/><circle cx="60" cy="22" r="10"/><circle cx="24" cy="20" r="9"/>
         <circle cx="140" cy="30" r="14"/><circle cx="120" cy="22" r="10"/><circle cx="156" cy="20" r="9"/>
       </g>
       <path d="M60 34 Q100 55 140 34" stroke="#C98D8F" fill="none" stroke-width="2"/>
     </svg>
-    <h1 class="title-script" id="titleScript">Para ti, mi amor</h1>
-    <p class="title-sub" id="titleSub">UNA CARTITA HECHA CON CARIÑO</p>
+    <h1 class="title-script">Happy 3 Months Baby</h1>
+    <p class="title-sub">Te amo demasiado mi amor</p>
   </div>
 
   <div class="section">
-    <div class="video-frame" id="videoFrame">
-        <video id="videoEl" src="WhatsApp Video 2026-09-04 at 6.24.48 PM.mp4" controls playsinline></video>
-      <div class="yt-wrap" id="ytWrap" hidden><div id="ytPlayerDiv"></div></div>
-      <div class="empty-slot" id="videoEmpty" hidden>
-          <span class="icon">🎬</span>
-          <span>Un video para ti</span>
-          <button class="upload-btn" id="videoUploadBtn">Subir video</button>
-          <input class="link-input" id="videoUrlInput" placeholder="o pega un link (YouTube u otro)">
-      </div>
-      <input type="file" accept="video/*" class="hidden-file" id="videoFileInput">
+    <div class="video-frame">
+      <video id="videoEl" src="WhatsApp Video 2026-09-04 at 6.24.48 PM.mp4" controls playsinline preload="metadata">
+        Tu navegador no puede reproducir este video.
+      </video>
     </div>
 
     <div class="collage">
-      <div class="photo-slot slot-a" data-slot="0"></div>
-      <div class="photo-slot slot-b" data-slot="1"></div>
-      <div class="photo-slot slot-c" data-slot="2"></div>
-      <div class="photo-slot slot-d" data-slot="3"></div>
+      <div class="photo-slot slot-a" data-photo="788688925_2282046085963626_7676672688282221659_n.jpg"></div>
+      <div class="photo-slot slot-b" data-photo="790224644_2127530284832369_4955173066589353780_n.jpg"></div>
+      <div class="photo-slot slot-c" data-photo="791509215_1067692859189931_1491793533794654651_n.jpg"></div>
+      <div class="photo-slot slot-d" data-photo="796816663_1381608374157047_623991851960589230_n.jpg"></div>
     </div>
 
     <div class="letter-card">
-      <div class="letter-text" id="letterText" contenteditable="false">Mi amor, desde que llegaste a mi vida todo se volvió más bonito. Quiero que cada palabra aquí te recuerde lo mucho que significas para mí y lo agradecido/a que estoy de tenerte. Toca el lápiz de arriba para escribir tu propia carta aquí. 🌸</div>
-      <p class="letter-signoff" id="letterSignoff">Te amo</p>
+      <div class="letter-text">Hello my love, today we are celebrating 3 months together.
+
+Thank you for being by my side all this time, and even though we have had arguments or misunderstandings, we have always known how to get through them because our love is bigger than any problem that could exist in this world.
+
+Thank you, my love, for all the smiles you have brought to my face, for all the happiness you have given me, and for all the beautiful moments we have shared during these 3 months.
+
+I know this is just the beginning of a life together, a life where we will be able to be by each other’s side, watching movies while cuddling and while I kiss that beautiful face that makes me fall in love with you more and more.
+
+Thank you, my love, for always finding time for us, for always finding moments when we can be together. I know you have been very stressed lately, and I just want you to know that I love you and that I am here to support you, my love. Everything will be okay.
+
+I know that in the future, during moments like these, I will be kissing you and telling you that you can handle everything, because you can, my love. You are the smartest, most beautiful, and most incredible person I have ever met in my entire life. You are perfect.
+
+I love you with all my heart. HAPPY 3 MONTHS TOGETHER, MY LOVE! ❤️
+
+Thank you for everything. I love you so much. ❤️</div>
+      <p class="letter-signoff">I love you so MUCHH</p>
     </div>
 
     <div class="voice-wrap">
-      <div class="voice-bubble" id="voiceBubble">
-        <button class="play-circle" id="voicePlayBtn">▶</button>
-        <div class="wave" id="waveBars"></div>
-        <div class="voice-empty" id="voiceEmpty" hidden>
-          <span>🎙️ Sin nota de voz</span>
-        </div>
+      <div class="voice-bubble">
+        <button class="play-circle" id="voicePlayBtn" hidden>▶</button>
+        <div class="wave" id="waveBars" hidden></div>
+        <div class="voice-empty" id="voiceEmpty"><span>🎙️ Sin nota de voz</span></div>
       </div>
-    </div>
-    <div style="text-align:center; margin-top:10px;">
-      <button class="upload-btn" id="voiceUploadBtn" hidden>Subir nota de voz</button>
-      <button class="upload-btn" id="voiceRecordBtn" hidden>⏺ Grabar</button>
-      <input type="file" accept="audio/*" class="hidden-file" id="voiceFileInput">
-      <p id="voiceRecordStatus" hidden style="font-size:12px; color:var(--ink-soft); margin-top:8px;"></p>
     </div>
 
     <div class="bottom-decor">
-      <svg class="rose-svg" style="width:100px;" viewBox="0 0 200 60">
-        <g fill="#E3B7B4">
-          <circle cx="100" cy="30" r="15"/><circle cx="80" cy="22" r="10"/><circle cx="120" cy="22" r="10"/>
-        </g>
+      <svg style="width:100px" viewBox="0 0 200 60">
+        <g fill="#E3B7B4"><circle cx="100" cy="30" r="15"/><circle cx="80" cy="22" r="10"/><circle cx="120" cy="22" r="10"/></g>
       </svg>
     </div>
 
-    <div class="video-frame yt-only" id="videoFrame2" style="margin-top:34px;">
-        <div class="yt-wrap" id="ytWrap2"><div id="ytPlayerDiv2"></div></div>
-        <div class="empty-slot" id="videoEmpty2" hidden>
-            <span class="icon">🎬</span>
-            <span>Para cerrar, un video de YouTube</span>
-            <input class="link-input" id="videoUrlInput2" placeholder="https://www.youtube.com/watch?v=ntdwWKaGaPQ">
-        </div>
+    <div class="video-frame yt-only" style="margin-top:34px">
+      <div class="yt-wrap"><iframe
+        src="https://www.youtube-nocookie.com/embed/ntdwWKaGaPQ?rel=0"
+        title="Video para cerrar la carta"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen></iframe></div>
     </div>
 
     <div class="bottom-decor">
-      <svg class="rose-svg" style="width:100px;" viewBox="0 0 200 60">
-        <g fill="#E3B7B4">
-          <circle cx="100" cy="30" r="15"/><circle cx="80" cy="22" r="10"/><circle cx="120" cy="22" r="10"/>
-        </g>
+      <svg style="width:100px" viewBox="0 0 200 60">
+        <g fill="#E3B7B4"><circle cx="100" cy="30" r="15"/><circle cx="80" cy="22" r="10"/><circle cx="120" cy="22" r="10"/></g>
       </svg>
     </div>
   </div>
 </div>
 
-<audio id="bgMusic" loop></audio>
-<div id="musicYtPlayer"></div>
-<input type="file" accept="image/*" class="hidden-file" id="photoFileInput">
+<!-- Música de YouTube: se controla después de desbloquear -->
+<div id="musicPlayer" hidden></div>
 
 <script>
 (function(){
-    window.__FINAL_STATE__ = {
-    "text": "Hello my love, today we are celebrating 3 months together. Thank you for being by my side all this time, and even though we have had arguments or misunderstandings, we have always known how to get through them because our love is bigger than any problem that could exist in this world.Thank you, my love, for all the smiles you have brought to my face, for all the happiness you have given me, and for all the beautiful moments we have shared during these 3 months. I know this is just the beginning of a life together, a life where we will be able to be by each other’s side, watching movies while cuddling and while I kiss that beautiful face that makes me fall in love with you more and more.Thank you, my love, for always finding time for us, for always finding moments when we can be together. I know you have been very stressed lately, and I just want you to know that I love you and that I am here to support you, my love. Everything will be okay.I know that in the future, during moments like these, I will be kissing you and telling you that you can handle everything, because you can, my love. You are the smartest, most beautiful, and most incredible person I have ever met in my entire life. You are perfect.I love you with all my heart. HAPPY 3 MONTHS TOGETHER, MY LOVE! ❤️ Thank you for everything. I love you so much. ❤️",
-    "photos": [
-      "788688925_2282046085963626_7676672688282221659_n",
-      "790224644_2127530284832369_4955173066589353780_n",
-      "791509215_1067692859189931_1491793533794654651_n",
-      "796816663_1381608374157047_623991851960589230_n"
-    ],
-    "musicUrl": "https://www.youtube.com/watch?v=WxPOSrrWjJY",
-    "welcomeEyebrow": "Happy 3 Months Babyyy",
-    "welcomeSub": "You need to know the code",
-    "title": "Happy 3 Months Baby",
-    "titleSub": "Te amo demasiado mi amor",
-    "signoff": "I love you so MUCHH",
-    "videoUrl2": "https://www.youtube.com/watch?v=ntdwWKaGaPQ"
-  };
-  window.__FINAL_MODE__ = true;
   const CORRECT_PIN = "6626";
   let pinBuffer = "";
-  const pinDots = document.querySelectorAll('.pin-dot');
-  const pinMsg = document.getElementById('pinMsg');
-  const pinScreen = document.getElementById('pinScreen');
-  const letterScreen = document.getElementById('letterScreen');
-  const bgMusic = document.getElementById('bgMusic');
-
-  // FINAL_MODE: se activa solo en el archivo generado por "Descargar versión final".
-  // En ese archivo el contenido ya viene fijo (window.__FINAL_STATE__) y no hay edición.
-  const FINAL_MODE = !!window.__FINAL_MODE__;
-
-  // default soft background music (public domain style ambient tone hosted externally)
-    const DEFAULT_MUSIC_URL = "https://www.youtube.com/watch?v=WxPOSrrWjJY";
+  const pinDots = document.querySelectorAll(".pin-dot");
+  const pinMsg = document.getElementById("pinMsg");
+  const pinScreen = document.getElementById("pinScreen");
+  const letterScreen = document.getElementById("letterScreen");
+  const musicToggle = document.getElementById("musicToggle");
+  let musicOn = true;
+  let ytMusicPlayer = null;
+  let ytApiPromise = null;
 
   function renderPin(){
-    pinDots.forEach((d,i)=>{
-      d.classList.toggle('filled', i < pinBuffer.length);
-      d.classList.remove('err');
+    pinDots.forEach((dot,i)=>{
+      dot.classList.toggle("filled", i < pinBuffer.length);
+      dot.classList.remove("err");
     });
   }
 
   function wrongPin(){
-    pinDots.forEach(d=>d.classList.add('err'));
+    pinDots.forEach(dot=>dot.classList.add("err"));
     pinMsg.textContent = "Código incorrecto, intenta de nuevo";
-    setTimeout(()=>{ pinBuffer=""; renderPin(); }, 400);
+    setTimeout(()=>{ pinBuffer=""; renderPin(); },400);
   }
 
-  document.getElementById('keypad').addEventListener('click', (e)=>{
-    const btn = e.target.closest('.key');
+  document.getElementById("keypad").addEventListener("click",e=>{
+    const btn=e.target.closest(".key");
     if(!btn) return;
-    const k = btn.dataset.k;
-    if(k === 'clear'){ pinBuffer=""; renderPin(); pinMsg.textContent=""; return; }
-    if(k === 'back'){ pinBuffer = pinBuffer.slice(0,-1); renderPin(); return; }
-    if(pinBuffer.length >= 4) return;
-    pinBuffer += k;
+    const k=btn.dataset.k;
+    if(k==="clear"){pinBuffer="";renderPin();pinMsg.innerHTML="&nbsp;";return}
+    if(k==="back"){pinBuffer=pinBuffer.slice(0,-1);renderPin();return}
+    if(pinBuffer.length>=4)return;
+    pinBuffer+=k;
     renderPin();
-    if(pinBuffer.length === 4){
-      if(pinBuffer === CORRECT_PIN){
-        setTimeout(unlock, 200);
-      } else {
-        setTimeout(wrongPin, 150);
-      }
+    if(pinBuffer.length===4){
+      if(pinBuffer===CORRECT_PIN)setTimeout(unlock,180);
+      else setTimeout(wrongPin,150);
     }
   });
 
-  function unlock(){
-    pinScreen.style.transition = 'opacity .5s ease';
-    pinScreen.style.opacity = '0';
-    setTimeout(()=>{
-      pinScreen.hidden = true;
-      letterScreen.hidden = false;
-      // start music on this user gesture
-      if(musicOn) playMusic();
-    }, 500);
-  }
-
-  // ---------- persistent storage (con respaldo si window.storage no existe) ----------
-  const STORE_KEY = "carta-data-v1";
-  let state = {
-    text: null, photos: [null,null,null,null], voice: null,
-    videoUrl: null, videoData: null, musicUrl: null,
-    welcomeEyebrow: null, welcomeSub: null, title: null, titleSub: null, signoff: null
-  };
-  let storageMode = 'none';
-  let musicOn = true;
-  let musicMode = 'audio'; // 'audio' (mp3/wav/ogg directo) o 'youtube'
-  let musicYtPlayer = null;
-  function playMusic(){
-    if(musicMode === 'youtube'){ if(musicYtPlayer && musicYtPlayer.playVideo) musicYtPlayer.playVideo(); }
-    else { bgMusic.play().catch(()=>{}); }
-  }
-  function pauseMusic(){
-    if(musicMode === 'youtube'){ if(musicYtPlayer && musicYtPlayer.pauseVideo) musicYtPlayer.pauseVideo(); }
-    else { bgMusic.pause(); }
-  }
-
-  async function storageGetRaw(){
-    if(window.storage){
-      try{
-        const res = await window.storage.get(STORE_KEY, true);
-        if(res && res.value) return res.value;
-      }catch(e){ /* sigue intentando con localStorage */ }
-    }
-    try{
-      const v = localStorage.getItem(STORE_KEY);
-      if(v) return v;
-    }catch(e){ /* almacenamiento no disponible */ }
-    return null;
-  }
-
-  async function storageSetRaw(value){
-    let ok = false;
-    if(window.storage){
-      try{
-        const res = await window.storage.set(STORE_KEY, value, true);
-        if(res) ok = true;
-      }catch(e){ /* intenta localStorage igual */ }
-    }
-    try{
-      localStorage.setItem(STORE_KEY, value);
-      ok = true;
-    }catch(e){ /* no disponible (ej. modo privado) */ }
-    return ok;
-  }
-
-  async function loadData(){
-    if(FINAL_MODE){
-      state = Object.assign(state, window.__FINAL_STATE__ || {});
-      applyState();
-      return;
-    }
-    const raw = await storageGetRaw();
-    if(raw){
-      try{ state = Object.assign(state, JSON.parse(raw)); }catch(e){}
-    }
-    applyState();
-  }
-
-  async function saveData(){
-    if(FINAL_MODE) return; // versión final: el contenido ya quedó fijo en el archivo
-    const ok = await storageSetRaw(JSON.stringify(state));
-    if(!ok) pinMsgFlash("No se pudo guardar en este navegador. Prueba abrir la carta desde el link, no como archivo descargado.");
-  }
-
-  function applyState(){
-    if(state.text) document.getElementById('letterText').textContent = state.text;
-    if(state.welcomeEyebrow) document.getElementById('pinEyebrowText').textContent = state.welcomeEyebrow;
-    if(state.welcomeSub) document.getElementById('pinSubText').textContent = state.welcomeSub;
-    if(state.title) document.getElementById('titleScript').textContent = state.title;
-    if(state.titleSub) document.getElementById('titleSub').textContent = state.titleSub;
-    if(state.signoff) document.getElementById('letterSignoff').textContent = state.signoff;
-
-    document.getElementById('welcomeEyebrowInput').value = document.getElementById('pinEyebrowText').textContent;
-    document.getElementById('welcomeSubInput').value = document.getElementById('pinSubText').textContent;
-
-    state.photos.forEach((data, i)=>{
-      if(data) setPhoto(i, data, false);
-    });
-    if(state.voice){ setVoice(state.voice, false); }
-    if(state.videoData){ setVideo(state.videoData, false); }
-    else if(state.videoUrl){ setVideo(state.videoUrl, false); document.getElementById('videoUrlInput').value = state.videoUrl; }
-    if(state.videoUrl2){
-      document.getElementById('videoUrlInput2').value = state.videoUrl2;
-      setVideo2(state.videoUrl2, false);
-    }
-
-    const musicInput = document.getElementById('musicUrlInput');
-    if(state.musicUrl) musicInput.value = state.musicUrl;
-    applyMusicSource(state.musicUrl || DEFAULT_MUSIC_URL, false);
-  }
-
-  // La carga se hace al final del script, después de inicializar todos los controladores.
-
-  // ---------- edit mode ----------
-  let editMode = false;
-  const editToggle = document.getElementById('editToggle');
-  const letterText = document.getElementById('letterText');
-  const titleScriptEl = document.getElementById('titleScript');
-  const titleSubEl = document.getElementById('titleSub');
-  const signoffEl = document.getElementById('letterSignoff');
-  const downloadFinalBtn = document.getElementById('downloadFinalBtn');
-  if(FINAL_MODE){
-    // en la versión final no existen ni el lápiz de edición ni el botón de descarga
-    editToggle.remove();
-    downloadFinalBtn.remove();
-  } else {
-    downloadFinalBtn.addEventListener('click', downloadFinalVersion);
-  }
-
-  async function downloadFinalVersion(){
-    downloadFinalBtn.disabled = true;
-    try{
-      const res = await fetch(location.href, { cache: 'no-store' });
-      if(!res.ok) throw new Error('fetch-failed');
-      let html = await res.text();
-
-      // toma también lo que esté escrito en pantalla ahora mismo, aunque
-      // no se haya salido del modo edición todavía
-      const finalState = Object.assign({}, state, {
-        text: letterText.textContent.trim(),
-        title: titleScriptEl.textContent.trim(),
-        titleSub: titleSubEl.textContent.trim(),
-        signoff: signoffEl.textContent.trim(),
-        welcomeEyebrow: document.getElementById('pinEyebrowText').textContent.trim(),
-        welcomeSub: document.getElementById('pinSubText').textContent.trim()
-      });
-
-      const marker = '(function(){';
-      const injection = '(function(){\n  window.__FINAL_STATE__ = ' + JSON.stringify(finalState) + ';\n  window.__FINAL_MODE__ = true;';
-      const idx = html.indexOf(marker);
-      if(idx === -1) throw new Error('marker-not-found');
-      html = html.slice(0, idx) + injection + html.slice(idx + marker.length);
-
-      const blob = new Blob([html], { type: 'text/html' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'index.html';
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-      setTimeout(()=>URL.revokeObjectURL(url), 4000);
-      pinMsgFlash('Listo, se descargó index.html. Súbelo a GitHub reemplazando el actual.');
-    }catch(err){
-      pinMsgFlash('No se pudo generar el archivo. Revisa tu conexión e intenta de nuevo.');
-    }finally{
-      downloadFinalBtn.disabled = false;
-    }
-  }
-
-  if(!FINAL_MODE){
-    editToggle.addEventListener('click', ()=>{
-      editMode = !editMode;
-      editToggle.textContent = editMode ? '✓' : '✎';
-      letterText.setAttribute('contenteditable', editMode ? 'true' : 'false');
-      titleScriptEl.setAttribute('contenteditable', editMode ? 'true' : 'false');
-      titleSubEl.setAttribute('contenteditable', editMode ? 'true' : 'false');
-      signoffEl.setAttribute('contenteditable', editMode ? 'true' : 'false');
-      document.body.classList.toggle('edit-mode', editMode);
-      document.querySelectorAll('.photo-slot').forEach(renderPhotoSlot);
-      document.getElementById('videoUploadBtn').closest('.empty-slot') && refreshVideoUI();
-      refreshVideo2UI();
-      document.getElementById('voiceUploadBtn').hidden = !editMode || !!state.voice;
-      document.getElementById('musicPanel').hidden = !editMode;
-      document.getElementById('welcomePanel').hidden = !editMode;
-      refreshVoiceUI();
-      if(!editMode){
-        state.text = letterText.textContent.trim();
-        state.title = titleScriptEl.textContent.trim();
-        state.titleSub = titleSubEl.textContent.trim();
-        state.signoff = signoffEl.textContent.trim();
-        saveData();
-      }
-    });
-  }
-
-  // ---------- textos de bienvenida (pantalla de PIN) ----------
-  const welcomeEyebrowInput = document.getElementById('welcomeEyebrowInput');
-  const welcomeSubInput = document.getElementById('welcomeSubInput');
-  welcomeEyebrowInput.addEventListener('input', ()=>{
-    document.getElementById('pinEyebrowText').textContent = welcomeEyebrowInput.value;
-  });
-  welcomeEyebrowInput.addEventListener('change', ()=>{
-    state.welcomeEyebrow = welcomeEyebrowInput.value.trim();
-    saveData();
-  });
-  welcomeSubInput.addEventListener('input', ()=>{
-    document.getElementById('pinSubText').textContent = welcomeSubInput.value;
-  });
-  welcomeSubInput.addEventListener('change', ()=>{
-    state.welcomeSub = welcomeSubInput.value.trim();
-    saveData();
-  });
-
-  // ---------- photos ----------
-  const photoInput = document.getElementById('photoFileInput');
-  let activeSlot = null;
-
-  document.querySelectorAll('.photo-slot').forEach(slot=>{
-    renderPhotoSlot(slot);
-  });
-
-  function renderPhotoSlot(slot){
-    const idx = parseInt(slot.dataset.slot,10);
-    const hasPhoto = !!state.photos[idx];
-    if(hasPhoto){
-      const photoName = String(state.photos[idx]);
-      const extensions = /\\.(jpe?g|png|webp|gif)$/i.test(photoName)
-        ? [""]
-        : [".jpg", ".jpeg", ".png", ".webp", ".JPG", ".JPEG", ".PNG", ".WEBP"];
-      const img = document.createElement("img");
-      img.alt = "foto";
-      let attempt = 0;
-      const loadPhoto = () => {
-        const candidate = photoName.startsWith("data:image/")
-          ? photoName
-          : photoName + extensions[attempt];
-        img.src = candidate;
-      };
-      img.onerror = () => {
-        attempt++;
-        if(attempt < extensions.length) loadPhoto();
-      };
-      loadPhoto();
-      slot.innerHTML = "";
-      slot.appendChild(img);
-      if(editMode){
-        const btn = document.createElement('button');
-        btn.className = 'upload-btn';
-        btn.style.position='absolute'; btn.style.bottom='6px'; btn.style.right='6px';
-        btn.style.padding='4px 10px'; btn.style.fontSize='11px';
-        btn.textContent='Cambiar';
-        btn.onclick = (e)=>{ e.stopPropagation(); activeSlot = idx; photoInput.click(); };
-        slot.appendChild(btn);
-      }
-    } else if(FINAL_MODE){
-      // versión final: no se muestran espacios vacíos ni botones de agregar
-      slot.style.display = 'none';
-    } else {
-      slot.style.display = '';
-      slot.innerHTML = `<div class="empty-slot"><span class="icon">🌷</span>${editMode ? '<button class="upload-btn">Agregar foto</button>' : '<span>Foto pendiente</span>'}</div>`;
-      if(editMode){
-        slot.querySelector('.upload-btn').onclick = ()=>{ activeSlot = idx; photoInput.click(); };
-      }
-    }
-  }
-
-  photoInput.addEventListener('change', (e)=>{
-    const file = e.target.files[0];
-    if(!file || activeSlot === null) return;
-    compressImage(file, 900, 0.75).then(dataUrl=>{
-      setPhoto(activeSlot, dataUrl, true);
-    });
-    photoInput.value = '';
-  });
-
-  function setPhoto(idx, dataUrl, persist){
-    state.photos[idx] = dataUrl;
-    const slot = document.querySelector(`.photo-slot[data-slot="${idx}"]`);
-    if(slot) renderPhotoSlot(slot);
-    if(persist) saveData();
-  }
-
-  function compressImage(file, maxDim, quality){
-    return new Promise((resolve,reject)=>{
-      const img = new Image();
-      const reader = new FileReader();
-      reader.onload = ()=>{
-        img.onload = ()=>{
-          let { width, height } = img;
-          if(width > height && width > maxDim){ height *= maxDim/width; width = maxDim; }
-          else if(height > maxDim){ width *= maxDim/height; height = maxDim; }
-          const canvas = document.createElement('canvas');
-          canvas.width = width; canvas.height = height;
-          canvas.getContext('2d').drawImage(img,0,0,width,height);
-          resolve(canvas.toDataURL('image/jpeg', quality));
-        };
-        img.onerror = reject;
-        img.src = reader.result;
-      };
-      reader.onerror = reject;
-      reader.readAsDataURL(file);
-    });
-  }
-
-  // ---------- background music link (mp3/wav/ogg directo o YouTube) ----------
-  const musicUrlInput = document.getElementById('musicUrlInput');
-  const musicPlayBtn = document.getElementById('musicPlayBtn');
-
-  function ensureMusicYtPlayer(id){
-    return loadYouTubeAPI().then(()=>{
-      if(musicYtPlayer){
-        musicYtPlayer.loadVideoById(id);
-      } else {
-        musicYtPlayer = new YT.Player('musicYtPlayer', {
-          host: 'https://www.youtube-nocookie.com',
-          width: '2',
-          height: '2',
-          videoId: id,
-          playerVars: { controls: 0, disablekb: 1 },
-          events: {
-            onReady: (e)=>{ e.target.setVolume(28); if(musicOn) e.target.playVideo(); },
-            onStateChange: (e)=>{ if(e.data === YT.PlayerState.ENDED){ e.target.playVideo(); } }
-          }
-        });
-      }
-    });
-  }
-
-  function applyMusicSource(url, persist){
-    const ytId = getYouTubeId(url);
-    if(ytId){
-      musicMode = 'youtube';
-      bgMusic.pause();
-      ensureMusicYtPlayer(ytId).then(()=>{ if(musicOn) playMusic(); });
-    } else {
-      musicMode = 'audio';
-      if(musicYtPlayer && musicYtPlayer.pauseVideo) musicYtPlayer.pauseVideo();
-      bgMusic.src = url || DEFAULT_MUSIC_URL;
-      bgMusic.volume = 0.28;
-      if(musicOn) bgMusic.play().catch(()=>{ pinMsgFlash("Toca ▶ junto al link para iniciar la música."); });
-    }
-    if(persist) saveData();
-  }
-
-  musicUrlInput.addEventListener('change', ()=>{
-    const url = musicUrlInput.value.trim();
-    state.musicUrl = url || null;
-    applyMusicSource(state.musicUrl || DEFAULT_MUSIC_URL, true);
-  });
-  musicPlayBtn.addEventListener('click', ()=>{
-    musicOn = true;
-    musicToggle.textContent = '🔊';
-    if(musicMode === 'youtube'){
-      if(musicYtPlayer && musicYtPlayer.playVideo) musicYtPlayer.playVideo();
-    } else {
-      bgMusic.volume = 0.28;
-      bgMusic.play().catch(()=>{ pinMsgFlash("No se pudo reproducir ese link. Usa un audio directo (mp3, wav, ogg) o un link de YouTube."); });
-    }
-  });
-  bgMusic.addEventListener('error', ()=>{
-    if(musicMode === 'audio') pinMsgFlash("Ese link de música no se pudo cargar. Usa un enlace directo a un archivo de audio (mp3, wav, ogg) o un link de YouTube.");
-  });
-
-  // pause/resume bg music helpers, used by both uploaded video and youtube
-  function duckMusicFor(el){
-    el.addEventListener('play', ()=>{ pauseMusic(); });
-    el.addEventListener('pause', ()=>{ if(musicOn) playMusic(); });
-    el.addEventListener('ended', ()=>{ if(musicOn) playMusic(); });
-  }
-
-  // ---------- video ----------
-  const videoEl = document.getElementById('videoEl');
-  const videoEmpty = document.getElementById('videoEmpty');
-  const videoUploadBtn = document.getElementById('videoUploadBtn');
-  const videoFileInput = document.getElementById('videoFileInput');
-  const videoUrlInput = document.getElementById('videoUrlInput');
-  const ytWrap = document.getElementById('ytWrap');
-  const videoFrame = document.getElementById('videoFrame');
-  duckMusicFor(videoEl);
-
-  let ytApiPromise = null;
-  function getYouTubeId(url){
-    const m = url.match(/(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([A-Za-z0-9_-]{11})/);
-    return m ? m[1] : null;
-  }
   function loadYouTubeAPI(){
-    if(ytApiPromise) return ytApiPromise;
-    ytApiPromise = new Promise(resolve=>{
-      if(window.YT && window.YT.Player){ resolve(); return; }
-      const existing = document.getElementById('ytApiScript');
-      if(!existing){
-        const tag = document.createElement('script');
-        tag.id = 'ytApiScript';
-        tag.src = 'https://www.youtube.com/iframe_api';
-        document.head.appendChild(tag);
-      }
-      const prev = window.onYouTubeIframeAPIReady;
-      window.onYouTubeIframeAPIReady = ()=>{ if(prev) prev(); resolve(); };
+    if(ytApiPromise)return ytApiPromise;
+    ytApiPromise=new Promise(resolve=>{
+      if(window.YT && window.YT.Player){resolve();return}
+      const tag=document.createElement("script");
+      tag.src="https://www.youtube.com/iframe_api";
+      document.head.appendChild(tag);
+      const previous=window.onYouTubeIframeAPIReady;
+      window.onYouTubeIframeAPIReady=()=>{
+        if(previous)previous();
+        resolve();
+      };
     });
     return ytApiPromise;
   }
-  // crea un controlador de YouTube reutilizable para un espacio de video
-  function createYouTubeSlot(playerDivId){
-    let player = null;
-    return function show(id){
-      loadYouTubeAPI().then(()=>{
-        if(player){
-          player.loadVideoById(id);
-        } else {
-          player = new YT.Player(playerDivId, {
-            host: 'https://www.youtube-nocookie.com',
-            videoId: id,
-            playerVars: { rel: 0 },
-            events: {
-              onStateChange: (ev)=>{
-                if(ev.data === YT.PlayerState.PLAYING){ pauseMusic(); }
-                else if(ev.data === YT.PlayerState.PAUSED || ev.data === YT.PlayerState.ENDED){ if(musicOn) playMusic(); }
-              }
-            }
-          });
+
+  function startMusic(){
+    if(!musicOn)return;
+    loadYouTubeAPI().then(()=>{
+      if(ytMusicPlayer){
+        ytMusicPlayer.playVideo();
+        return;
+      }
+      ytMusicPlayer=new YT.Player("musicPlayer",{
+        host:"https://www.youtube-nocookie.com",
+        width:"2",height:"2",
+        videoId:"WxPOSrrWjJY",
+        playerVars:{
+          autoplay:1,controls:0,disablekb:1,rel:0,playsinline:1,
+          loop:1,playlist:"WxPOSrrWjJY"
+        },
+        events:{
+          onReady:e=>{e.target.setVolume(28);e.target.playVideo()},
+          onStateChange:e=>{
+            if(e.data===YT.PlayerState.ENDED)e.target.playVideo();
+          }
         }
       });
+    }).catch(()=>{});
+  }
+
+  function stopMusic(){
+    if(ytMusicPlayer && ytMusicPlayer.pauseVideo)ytMusicPlayer.pauseVideo();
+  }
+
+  function unlock(){
+    pinScreen.style.transition="opacity .5s ease";
+    pinScreen.style.opacity="0";
+    setTimeout(()=>{
+      pinScreen.hidden=true;
+      letterScreen.hidden=false;
+      startMusic();
+    },500);
+  }
+
+  musicToggle.addEventListener("click",()=>{
+    musicOn=!musicOn;
+    musicToggle.textContent=musicOn?"🔊":"🔈";
+    if(musicOn)startMusic();
+    else stopMusic();
+  });
+
+  /* Las imágenes se cargan directamente desde GitHub.
+     No dependen de un estado asíncrono ni de localStorage. */
+  document.querySelectorAll(".photo-slot").forEach(slot=>{
+    const filename=slot.dataset.photo;
+    const img=document.createElement("img");
+    img.alt="Foto";
+    img.loading="eager";
+    img.decoding="async";
+    img.src=filename;
+    img.onerror=()=>{
+      if(!img.dataset.fallback){
+        img.dataset.fallback="1";
+        img.src="./"+encodeURIComponent(filename).replace(/%2F/g,"/");
+      }else{
+        slot.innerHTML='<div class="photo-error">No se pudo cargar esta foto.<br>Revisa que el nombre del archivo coincida exactamente en GitHub.</div>';
+      }
     };
-  }
-
-  const ytShow1 = createYouTubeSlot('ytPlayerDiv');
-  function showYouTube(id){
-    videoEl.hidden = true; videoEl.pause();
-    ytWrap.hidden = false;
-    videoEmpty.hidden = true;
-    ytShow1(id);
-  }
-
-  videoUploadBtn.addEventListener('click', ()=> videoFileInput.click());
-
-  videoFileInput.addEventListener('change', (e)=>{
-    const file = e.target.files[0];
-    if(!file) return;
-    const objectUrl = URL.createObjectURL(file);
-    setVideo(objectUrl, false);
-    // try to persist if small enough
-    if(file.size < 4 * 1024 * 1024){
-      const reader = new FileReader();
-      reader.onload = ()=>{
-        state.videoData = reader.result;
-        state.videoUrl = null;
-        saveData();
-      };
-      reader.readAsDataURL(file);
-    } else {
-      videoNotice("El video es grande: se ve ahora, pero para que quede guardado siempre, pega mejor un link arriba.");
-    }
+    slot.appendChild(img);
   });
 
-  videoUrlInput.addEventListener('change', ()=>{
-    const url = videoUrlInput.value.trim();
-    if(!url) return;
-    state.videoUrl = url;
-    state.videoData = null;
-    setVideo(url, true);
-  });
-
-  function setVideo(src, persist){
-    const ytId = getYouTubeId(src);
-    if(ytId){
-      showYouTube(ytId);
-    } else {
-      ytWrap.hidden = true;
-      videoEl.src = src;
-      videoEl.hidden = false;
-      videoEmpty.hidden = true;
-    }
-    if(persist) saveData();
-  }
-
-  function refreshVideoUI(){
-    const hasVideo = !!(state.videoData || state.videoUrl);
-    if(!hasVideo){
-      videoEl.hidden = true;
-      ytWrap.hidden = true;
-    }
-    if(FINAL_MODE){
-      // versión final: si no hay video, se oculta el recuadro entero (sin botones)
-      videoFrame.style.display = hasVideo ? '' : 'none';
-      videoEmpty.hidden = true;
-      videoEmpty.style.display = 'none';
-      return;
-    }
-    const showEmpty = editMode || !hasVideo;
-    videoEmpty.hidden = !showEmpty;
-    videoEmpty.style.display = showEmpty ? 'flex' : 'none';
-  }
-
-  function videoNotice(msg){
-    pinMsgFlash(msg);
-  }
-
-  // ---------- segundo video: solo YouTube, al final de la carta ----------
-  const videoEmpty2 = document.getElementById('videoEmpty2');
-  const videoUrlInput2 = document.getElementById('videoUrlInput2');
-  const ytWrap2 = document.getElementById('ytWrap2');
-  const ytShow2 = createYouTubeSlot('ytPlayerDiv2');
-
-  function setVideo2(url, persist){
-    const ytId = getYouTubeId(url);
-    if(!ytId){
-      pinMsgFlash("Ese link no parece ser de YouTube. Copia el link desde 'Compartir' en YouTube.");
-      return;
-    }
-    ytWrap2.hidden = false;
-    videoEmpty2.hidden = true;
-    ytShow2(ytId);
-    if(persist) saveData();
-  }
-
-  videoUrlInput2.addEventListener('change', ()=>{
-    const url = videoUrlInput2.value.trim();
-    if(!url) return;
-    state.videoUrl2 = url;
-    setVideo2(url, true);
-  });
-
-  function refreshVideo2UI(){
-    const hasVideo = !!state.videoUrl2;
-    if(!hasVideo){ ytWrap2.hidden = true; }
-    if(FINAL_MODE){
-      const frame2 = document.getElementById('videoFrame2');
-      frame2.style.display = hasVideo ? '' : 'none';
-      videoEmpty2.hidden = true;
-      videoEmpty2.style.display = 'none';
-      return;
-    }
-    const showEmpty = editMode || !hasVideo;
-    videoEmpty2.hidden = !showEmpty;
-    videoEmpty2.style.display = showEmpty ? 'flex' : 'none';
-  }
-  function pinMsgFlash(msg){
-    // small transient toast reuse
-    const t = document.createElement('div');
-    t.textContent = msg;
-    t.style.position='fixed'; t.style.bottom='24px'; t.style.left='50%'; t.style.transform='translateX(-50%)';
-    t.style.background='#fff'; t.style.color='#8A6663'; t.style.padding='10px 18px';
-    t.style.borderRadius='999px'; t.style.boxShadow='0 8px 20px rgba(0,0,0,.15)'; t.style.fontSize='13px';
-    t.style.zIndex=999; t.style.maxWidth='260px'; t.style.textAlign='center';
-    document.body.appendChild(t);
-    setTimeout(()=>t.remove(), 3500);
-  }
-
-  // ---------- voice note ----------
-  const voicePlayBtn = document.getElementById('voicePlayBtn');
-  const voiceUploadBtn = document.getElementById('voiceUploadBtn');
-  const voiceRecordBtn = document.getElementById('voiceRecordBtn');
-  const voiceRecordStatus = document.getElementById('voiceRecordStatus');
-  const voiceFileInput = document.getElementById('voiceFileInput');
-  const voiceEmpty = document.getElementById('voiceEmpty');
-  const waveBars = document.getElementById('waveBars');
-  let voiceAudio = new Audio();
-  let voicePlaying = false;
-
-  // build static wave bars
+  /* Wave visual para la nota de voz, aunque actualmente no hay una cargada. */
+  const wave=document.getElementById("waveBars");
   for(let i=0;i<26;i++){
-    const s = document.createElement('span');
-    s.style.height = (20 + Math.random()*70) + '%';
-    waveBars.appendChild(s);
+    const span=document.createElement("span");
+    span.style.height=(20+Math.random()*70)+"%";
+    wave.appendChild(span);
   }
-
-  voiceUploadBtn.addEventListener('click', ()=> voiceFileInput.click());
-  voiceFileInput.addEventListener('change', (e)=>{
-    const file = e.target.files[0];
-    if(!file) return;
-    if(file.size > 4.5*1024*1024){
-      pinMsgFlash("La nota de voz es muy pesada para guardarla (máx ~4MB).");
-      return;
-    }
-    const reader = new FileReader();
-    reader.onload = ()=>{
-      state.voice = reader.result;
-      setVoice(state.voice, true);
-    };
-    reader.readAsDataURL(file);
-  });
-
-  function setVoice(dataUrl, persist){
-    voiceAudio.src = dataUrl;
-    voiceEmpty.hidden = true;
-    voicePlayBtn.hidden = false;
-    waveBars.hidden = false;
-    if(persist) saveData();
-    refreshVoiceUI();
-  }
-
-  function refreshVoiceUI(){
-    const has = !!state.voice;
-    voiceEmpty.hidden = has;
-    voicePlayBtn.hidden = !has;
-    waveBars.hidden = !has;
-    voiceUploadBtn.hidden = !editMode;
-    voiceRecordBtn.hidden = !editMode || !supportsRecording();
-  }
-
-  // ---------- grabar nota de voz desde el micrófono ----------
-  function supportsRecording(){
-    return !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia && window.MediaRecorder);
-  }
-
-  let mediaRecorder = null;
-  let recordedChunks = [];
-  let isRecording = false;
-  let recordStartTime = 0;
-  let recordTimerInterval = null;
-
-  function pickRecorderMime(){
-    const options = ['audio/mp4', 'audio/webm;codecs=opus', 'audio/webm', 'audio/ogg;codecs=opus'];
-    for(const type of options){
-      if(window.MediaRecorder && MediaRecorder.isTypeSupported && MediaRecorder.isTypeSupported(type)) return type;
-    }
-    return '';
-  }
-
-  function updateRecordTimer(){
-    const secs = Math.floor((Date.now() - recordStartTime) / 1000);
-    const m = String(Math.floor(secs/60)).padStart(2,'0');
-    const s = String(secs%60).padStart(2,'0');
-    voiceRecordStatus.textContent = `● Grabando ${m}:${s} — toca de nuevo para detener`;
-  }
-
-  function stopRecordingUI(){
-    isRecording = false;
-    clearInterval(recordTimerInterval);
-    voiceRecordBtn.textContent = '⏺ Grabar';
-    voiceRecordBtn.classList.remove('recording');
-    voiceRecordStatus.hidden = true;
-  }
-
-  voiceRecordBtn.addEventListener('click', async ()=>{
-    if(!supportsRecording()){
-      pinMsgFlash("Tu navegador no permite grabar audio aquí. Prueba subir un archivo de audio en su lugar.");
-      return;
-    }
-    if(isRecording){
-      if(mediaRecorder && mediaRecorder.state !== 'inactive') mediaRecorder.stop();
-      return;
-    }
-    try{
-      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-      recordedChunks = [];
-      const mimeType = pickRecorderMime();
-      mediaRecorder = mimeType ? new MediaRecorder(stream, { mimeType }) : new MediaRecorder(stream);
-      mediaRecorder.addEventListener('dataavailable', (e)=>{ if(e.data && e.data.size > 0) recordedChunks.push(e.data); });
-      mediaRecorder.addEventListener('stop', ()=>{
-        stream.getTracks().forEach(t=>t.stop());
-        stopRecordingUI();
-        if(!recordedChunks.length) return;
-        const blob = new Blob(recordedChunks, { type: mediaRecorder.mimeType || 'audio/webm' });
-        if(blob.size > 4.5*1024*1024){
-          pinMsgFlash("La grabación quedó muy pesada para guardarla (máx ~4MB). Intenta algo más corto.");
-          return;
-        }
-        const reader = new FileReader();
-        reader.onload = ()=>{
-          state.voice = reader.result;
-          setVoice(state.voice, true);
-        };
-        reader.readAsDataURL(blob);
-      });
-      mediaRecorder.start();
-      isRecording = true;
-      recordStartTime = Date.now();
-      voiceRecordBtn.textContent = '⏹ Detener';
-      voiceRecordBtn.classList.add('recording');
-      voiceRecordStatus.hidden = false;
-      updateRecordTimer();
-      recordTimerInterval = setInterval(updateRecordTimer, 500);
-    } catch(err){
-      pinMsgFlash("No se pudo acceder al micrófono. Revisa los permisos del navegador.");
-    }
-  });
-
-  voicePlayBtn.addEventListener('click', ()=>{
-    if(!state.voice) return;
-    if(voicePlaying){ voiceAudio.pause(); voicePlayBtn.textContent='▶'; }
-    else { voiceAudio.play(); voicePlayBtn.textContent='❚❚'; }
-    voicePlaying = !voicePlaying;
-  });
-  voiceAudio.addEventListener('ended', ()=>{ voicePlaying=false; voicePlayBtn.textContent='▶'; });
-
-  // ---------- background music toggle ----------
-  const musicToggle = document.getElementById('musicToggle');
-  musicToggle.addEventListener('click', ()=>{
-    musicOn = !musicOn;
-    musicToggle.textContent = musicOn ? '🔊' : '🔈';
-    if(musicOn){ playMusic(); } else { pauseMusic(); }
-  });
-
-  refreshVoiceUI();
-
-  // Cargar el estado final solo después de que música y videos estén listos.
-  loadData();
 })();
 </script>
 </body>
