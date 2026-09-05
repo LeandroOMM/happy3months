@@ -431,16 +431,17 @@ Thank you for everything. I love you so much. ❤️</div>
   /* =========================
      NOTA DE VOZ
      =========================
-     La versión final anterior no tenía la nota dentro del HTML: el audio se
-     guardaba en localStorage/window.storage. Intentamos recuperar esa nota
-     automáticamente si todavía existe en el navegador donde se usó la página.
-     Si el almacenamiento fue borrado, el audio original no puede reconstruirse
-     porque no existe como archivo dentro del repositorio. */
+     El audio se sirve como archivo real desde GitHub, no desde localStorage.
+     Para máxima compatibilidad se intenta WebM/Opus primero y MP4/Opus después.
+  */
   const voicePlayBtn = document.getElementById("voicePlayBtn");
   const voiceEmpty = document.getElementById("voiceEmpty");
   const wave = document.getElementById("waveBars");
   const voiceAudio = new Audio();
   let voicePlaying = false;
+
+  const VOICE_BASE =
+    "https://raw.githubusercontent.com/LeandroOMM/happy3months/refs/heads/main/audio/";
 
   for(let i=0;i<26;i++){
     const span=document.createElement("span");
@@ -448,15 +449,52 @@ Thank you for everything. I love you so much. ❤️</div>
     wave.appendChild(span);
   }
 
-  function showVoice(dataUrl){
-    if(!dataUrl || typeof dataUrl !== "string") return false;
-    if(!dataUrl.startsWith("data:audio/")) return false;
+  function setupVoice(){
+    const sources = [
+      { file:"nota-voz.webm", type:"audio/webm; codecs=opus" },
+      { file:"nota-voz.mp4",  type:"audio/mp4; codecs=opus" }
+    ];
 
-    voiceAudio.src = dataUrl;
-    voicePlayBtn.hidden = false;
-    wave.hidden = false;
-    voiceEmpty.hidden = true;
-    return true;
+    let selected = null;
+    for(const source of sources){
+      if(voiceAudio.canPlayType(source.type)){
+        selected = source;
+        break;
+      }
+    }
+
+    // Si el navegador no informa compatibilidad, dejamos que pruebe MP4.
+    if(!selected) selected = sources[1];
+
+    voiceAudio.src = VOICE_BASE + selected.file;
+    voiceAudio.preload = "auto";
+    voiceAudio.load();
+
+    voiceAudio.addEventListener("canplay", ()=>{
+      voicePlayBtn.hidden = false;
+      wave.hidden = false;
+      voiceEmpty.hidden = true;
+    }, {once:true});
+
+    voiceAudio.addEventListener("error", ()=>{
+      // Segundo intento: WebM, útil en Chrome/Firefox/Android.
+      if(selected.file !== "nota-voz.webm"){
+        voiceAudio.src = VOICE_BASE + "nota-voz.webm";
+        voiceAudio.load();
+        return;
+      }
+      voicePlayBtn.hidden = true;
+      wave.hidden = true;
+      voiceEmpty.hidden = false;
+      voiceEmpty.innerHTML =
+        "<span>🎙️ No se pudo cargar la nota de voz</span>";
+    });
+
+    voiceAudio.addEventListener("loadedmetadata", ()=>{
+      voicePlayBtn.hidden = false;
+      wave.hidden = false;
+      voiceEmpty.hidden = true;
+    });
   }
 
   voicePlayBtn.addEventListener("click", ()=>{
@@ -481,35 +519,10 @@ Thank you for everything. I love you so much. ❤️</div>
     voicePlayBtn.textContent="▶";
   });
 
-  async function recoverOldVoice(){
-    /* 1) Intentar window.storage, que era el sistema original. */
-    try{
-      if(window.storage && typeof window.storage.get === "function"){
-        const result = await window.storage.get("carta-data-v1", true);
-        if(result && result.value){
-          const saved = JSON.parse(result.value);
-          if(showVoice(saved.voice)) return;
-        }
-      }
-    }catch(e){}
-
-    /* 2) Intentar localStorage del sitio antiguo. */
-    try{
-      const raw = localStorage.getItem("carta-data-v1");
-      if(raw){
-        const saved = JSON.parse(raw);
-        if(showVoice(saved.voice)) return;
-      }
-    }catch(e){}
-
-    /* No inventamos una grabación si ya no existe. */
-    voicePlayBtn.hidden = true;
-    wave.hidden = true;
-    voiceEmpty.hidden = false;
-    voiceEmpty.innerHTML =
-      "<span>🎙️ La nota de voz original ya no está disponible</span>";
+  function recoverOldVoice(){
+    // La nota ya no depende del navegador donde se creó la página.
+    setupVoice();
   }
-
   recoverOldVoice();
 })();
 </script>
